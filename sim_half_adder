@@ -1,0 +1,198 @@
+#! /usr/bin/vvp
+:ivl_version "12.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision - 12;
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/system.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/vhdl_sys.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/vhdl_textio.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/v2005_math.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/va_math.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/v2009.vpi";
+S_0x587aea56ada0 .scope package, "$unit" "$unit" 2 1;
+ .timescale 0 0;
+S_0x587aea56af30 .scope module, "tb_half_adder" "tb_half_adder" 3 3;
+ .timescale -9 -12;
+v0x587aea58b170_0 .var "a", 0 0;
+v0x587aea58b230_0 .var "b", 0 0;
+v0x587aea58b2f0_0 .net "carry", 0 0, L_0x587aea58b910;  1 drivers
+v0x587aea58b420_0 .net "result", 0 0, L_0x587aea58b720;  1 drivers
+S_0x587aea52d490 .scope task, "check" "check" 3 19, 3 19 0, S_0x587aea56af30;
+ .timescale -9 -12;
+v0x587aea56cb70_0 .var "aa", 0 0;
+v0x587aea52dae0_0 .var "bb", 0 0;
+v0x587aea587a80_0 .var "exp_carry", 0 0;
+v0x587aea587b20_0 .var "exp_result", 0 0;
+TD_tb_half_adder.check ;
+    %load/vec4 v0x587aea56cb70_0;
+    %store/vec4 v0x587aea58b170_0, 0, 1;
+    %load/vec4 v0x587aea52dae0_0;
+    %store/vec4 v0x587aea58b230_0, 0, 1;
+    %delay 10000, 0;
+    %load/vec4 v0x587aea58b420_0;
+    %load/vec4 v0x587aea587b20_0;
+    %cmp/ne;
+    %jmp/1 T_0.2, 6;
+    %flag_mov 8, 6;
+    %load/vec4 v0x587aea58b2f0_0;
+    %load/vec4 v0x587aea587a80_0;
+    %cmp/ne;
+    %flag_or 6, 8;
+T_0.2;
+    %jmp/0xz  T_0.0, 6;
+    %vpi_call/w 3 24 "$display", "NG: a=%0b b=%0b exp_result=%0b got_result=%0b exp_carry=%0b got_carry=%0b", v0x587aea56cb70_0, v0x587aea52dae0_0, v0x587aea587b20_0, v0x587aea58b420_0, v0x587aea587a80_0, v0x587aea58b2f0_0 {0 0 0};
+    %vpi_call/w 3 26 "$fatal" {0 0 0};
+T_0.0 ;
+    %end;
+S_0x587aea587be0 .scope module, "dut" "half_adder" 3 7, 4 1 0, S_0x587aea56af30;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "a";
+    .port_info 1 /INPUT 1 "b";
+    .port_info 2 /OUTPUT 1 "result";
+    .port_info 3 /OUTPUT 1 "carry";
+v0x587aea58ae40_0 .net "a", 0 0, v0x587aea58b170_0;  1 drivers
+v0x587aea58aee0_0 .net "b", 0 0, v0x587aea58b230_0;  1 drivers
+v0x587aea58afa0_0 .net "carry", 0 0, L_0x587aea58b910;  alias, 1 drivers
+v0x587aea58b040_0 .net "result", 0 0, L_0x587aea58b720;  alias, 1 drivers
+S_0x587aea587e80 .scope module, "u_and2" "and2" 4 8, 5 1 0, S_0x587aea587be0;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "a";
+    .port_info 1 /INPUT 1 "b";
+    .port_info 2 /OUTPUT 1 "y";
+v0x587aea588f10_0 .net "a", 0 0, v0x587aea58b170_0;  alias, 1 drivers
+v0x587aea588fe0_0 .net "b", 0 0, v0x587aea58b230_0;  alias, 1 drivers
+v0x587aea5890b0_0 .net "n", 0 0, L_0x587aea58b860;  1 drivers
+v0x587aea589180_0 .net "y", 0 0, L_0x587aea58b910;  alias, 1 drivers
+S_0x587aea5880d0 .scope module, "u_nand2" "nand2" 5 8, 6 1 0, S_0x587aea587e80;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "a";
+    .port_info 1 /INPUT 1 "b";
+    .port_info 2 /OUTPUT 1 "y";
+L_0x587aea58b860 .functor NAND 1, v0x587aea58b170_0, v0x587aea58b230_0, C4<1>, C4<1>;
+v0x587aea588340_0 .net "a", 0 0, v0x587aea58b170_0;  alias, 1 drivers
+v0x587aea588420_0 .net "b", 0 0, v0x587aea58b230_0;  alias, 1 drivers
+v0x587aea5884e0_0 .net "y", 0 0, L_0x587aea58b860;  alias, 1 drivers
+S_0x587aea588630 .scope module, "u_not1" "not1" 5 9, 7 1 0, S_0x587aea587e80;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "a";
+    .port_info 1 /OUTPUT 1 "y";
+v0x587aea588d60_0 .net "a", 0 0, L_0x587aea58b860;  alias, 1 drivers
+v0x587aea588e00_0 .net "y", 0 0, L_0x587aea58b910;  alias, 1 drivers
+S_0x587aea588810 .scope module, "u_nand" "nand2" 7 5, 6 1 0, S_0x587aea588630;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "a";
+    .port_info 1 /INPUT 1 "b";
+    .port_info 2 /OUTPUT 1 "y";
+L_0x587aea58b910 .functor NAND 1, L_0x587aea58b860, L_0x587aea58b860, C4<1>, C4<1>;
+v0x587aea588a80_0 .net "a", 0 0, L_0x587aea58b860;  alias, 1 drivers
+v0x587aea588b70_0 .net "b", 0 0, L_0x587aea58b860;  alias, 1 drivers
+v0x587aea588c60_0 .net "y", 0 0, L_0x587aea58b910;  alias, 1 drivers
+S_0x587aea589240 .scope module, "u_xor2" "xor2" 4 7, 8 1 0, S_0x587aea587be0;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "a";
+    .port_info 1 /INPUT 1 "b";
+    .port_info 2 /OUTPUT 1 "y";
+v0x587aea58a8a0_0 .net "a", 0 0, v0x587aea58b170_0;  alias, 1 drivers
+v0x587aea58a9d0_0 .net "b", 0 0, v0x587aea58b230_0;  alias, 1 drivers
+v0x587aea58ab20_0 .net "n1", 0 0, L_0x587aea58b4c0;  1 drivers
+v0x587aea58abf0_0 .net "n2", 0 0, L_0x587aea58b5c0;  1 drivers
+v0x587aea58ac90_0 .net "n3", 0 0, L_0x587aea58b670;  1 drivers
+v0x587aea58ad80_0 .net "y", 0 0, L_0x587aea58b720;  alias, 1 drivers
+S_0x587aea589470 .scope module, "u1" "nand2" 8 8, 6 1 0, S_0x587aea589240;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "a";
+    .port_info 1 /INPUT 1 "b";
+    .port_info 2 /OUTPUT 1 "y";
+L_0x587aea58b4c0 .functor NAND 1, v0x587aea58b170_0, v0x587aea58b230_0, C4<1>, C4<1>;
+v0x587aea5896e0_0 .net "a", 0 0, v0x587aea58b170_0;  alias, 1 drivers
+v0x587aea5897f0_0 .net "b", 0 0, v0x587aea58b230_0;  alias, 1 drivers
+v0x587aea589900_0 .net "y", 0 0, L_0x587aea58b4c0;  alias, 1 drivers
+S_0x587aea589a00 .scope module, "u2" "nand2" 8 9, 6 1 0, S_0x587aea589240;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "a";
+    .port_info 1 /INPUT 1 "b";
+    .port_info 2 /OUTPUT 1 "y";
+L_0x587aea58b5c0 .functor NAND 1, v0x587aea58b170_0, L_0x587aea58b4c0, C4<1>, C4<1>;
+v0x587aea589c30_0 .net "a", 0 0, v0x587aea58b170_0;  alias, 1 drivers
+v0x587aea589cf0_0 .net "b", 0 0, L_0x587aea58b4c0;  alias, 1 drivers
+v0x587aea589db0_0 .net "y", 0 0, L_0x587aea58b5c0;  alias, 1 drivers
+S_0x587aea589e90 .scope module, "u3" "nand2" 8 10, 6 1 0, S_0x587aea589240;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "a";
+    .port_info 1 /INPUT 1 "b";
+    .port_info 2 /OUTPUT 1 "y";
+L_0x587aea58b670 .functor NAND 1, v0x587aea58b230_0, L_0x587aea58b4c0, C4<1>, C4<1>;
+v0x587aea58a0f0_0 .net "a", 0 0, v0x587aea58b230_0;  alias, 1 drivers
+v0x587aea58a190_0 .net "b", 0 0, L_0x587aea58b4c0;  alias, 1 drivers
+v0x587aea58a2a0_0 .net "y", 0 0, L_0x587aea58b670;  alias, 1 drivers
+S_0x587aea58a3a0 .scope module, "u4" "nand2" 8 11, 6 1 0, S_0x587aea589240;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "a";
+    .port_info 1 /INPUT 1 "b";
+    .port_info 2 /OUTPUT 1 "y";
+L_0x587aea58b720 .functor NAND 1, L_0x587aea58b5c0, L_0x587aea58b670, C4<1>, C4<1>;
+v0x587aea58a5d0_0 .net "a", 0 0, L_0x587aea58b5c0;  alias, 1 drivers
+v0x587aea58a6c0_0 .net "b", 0 0, L_0x587aea58b670;  alias, 1 drivers
+v0x587aea58a790_0 .net "y", 0 0, L_0x587aea58b720;  alias, 1 drivers
+    .scope S_0x587aea56af30;
+T_1 ;
+    %vpi_call/w 3 15 "$dumpfile", "waves/comb/half_adder.vcd" {0 0 0};
+    %vpi_call/w 3 16 "$dumpvars", 32'sb00000000000000000000000000000000, S_0x587aea56af30 {0 0 0};
+    %end;
+    .thread T_1;
+    .scope S_0x587aea56af30;
+T_2 ;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x587aea56cb70_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x587aea52dae0_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x587aea587b20_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x587aea587a80_0, 0, 1;
+    %fork TD_tb_half_adder.check, S_0x587aea52d490;
+    %join;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x587aea56cb70_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x587aea52dae0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x587aea587b20_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x587aea587a80_0, 0, 1;
+    %fork TD_tb_half_adder.check, S_0x587aea52d490;
+    %join;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x587aea56cb70_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x587aea52dae0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x587aea587b20_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x587aea587a80_0, 0, 1;
+    %fork TD_tb_half_adder.check, S_0x587aea52d490;
+    %join;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x587aea56cb70_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x587aea52dae0_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x587aea587b20_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x587aea587a80_0, 0, 1;
+    %fork TD_tb_half_adder.check, S_0x587aea52d490;
+    %join;
+    %vpi_call/w 3 35 "$display", "OK: half_adder passed all tests." {0 0 0};
+    %vpi_call/w 3 36 "$finish" {0 0 0};
+    %end;
+    .thread T_2;
+# The file index is used to find the file name in the following table.
+:file_names 9;
+    "N/A";
+    "<interactive>";
+    "-";
+    "tb/comb/tb_half_adder.sv";
+    "rtl/comb/half_adder.sv";
+    "rtl/gates/and2.sv";
+    "rtl/primitives/nand2.sv";
+    "rtl/gates/not1.sv";
+    "rtl/gates/xor2.sv";
