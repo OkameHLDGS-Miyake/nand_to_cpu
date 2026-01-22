@@ -1,0 +1,22 @@
+# ---- waves / simulation outputs ----
+waves/
+*.vcd
+*.fst
+*.wlf
+*.vpd
+
+# ---- build outputs ----
+*.out
+*.o
+*.obj
+*.exe
+*.a
+*.so
+*.dll
+*.dylib
+*.log
+
+# ---- editor / OS ----
+.vscode/
+.DS_Store
+Thumbs.db
